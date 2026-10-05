@@ -226,8 +226,3 @@ systemctl --user status switch-refresh-rate.service
 journalctl --user -u switch-refresh-rate.service -f
 gdctl show | grep -A1 'Current mode'   # 120 on AC, 60 on battery
 ```
-
-### Why 2 and not 1
-
-If you also tune Homebrew or check PATH counts: `brew shellenv` prepends **both** `bin` and
-`sbin`, so two PATH entries is correct for a single evaluation; four means it ran twice.
