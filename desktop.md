@@ -150,10 +150,12 @@ cp <font>.ttf ~/.local/share/fonts/ && fc-cache -f
 
 ## Displays and monitors
 
+See [display.md](display.md) for detecting monitors, saving/restoring layouts, and the
+auto refresh-rate switch.
+
 ```bash
-gnome-randr                              # if installed (Wayland CLI)
-wlr-randr                                # wlroots compositors
-xrandr                                   # X11
+gdctl show                               # active layout (ships with mutter)
+gdctl show -v                            # + available modes and properties
 gsettings get org.gnome.desktop.interface text-scaling-factor
 gsettings set org.gnome.desktop.interface text-scaling-factor 1.25
 ```

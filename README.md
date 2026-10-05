@@ -16,11 +16,11 @@ Everything here is meant to be copy-pasteable — adjust names, devices, and pat
 | [hardware.md](hardware.md) | Battery, brightness, Bluetooth, touchpad, Wi-Fi, sensors |
 | [graphics.md](graphics.md) | Hybrid Intel/NVIDIA, `envycontrol`, PRIME/offload, driver overrides |
 | [storage.md](storage.md) | Disks, mounts, `fstab`, LUKS, LVM, Btrfs, snapshots |
-| [display.md](display.md) | Monitors, resolution, refresh rate, scaling, auto 120/60 Hz |
+| [display.md](display.md) | Monitors: detect, save/restore layouts, scaling, auto 120/60 Hz |
 | [desktop.md](desktop.md) | GNOME, `gsettings`, screenshots, clipboard, fonts |
 | [security.md](security.md) | SELinux, GPG, SSH keys, secrets |
 | [troubleshooting.md](troubleshooting.md) | Common laptop fixes and what to check first |
-| [scripts/](scripts/) | Ready-to-use helpers (auto refresh-rate switching) |
+| [scripts/](scripts/) | Ready-to-use helpers (panel refresh-rate switching) |
 
 ## Conventions
 
