@@ -1,12 +1,13 @@
 [Unit]
-Description=Switch refresh rate on power source change
+Description=Switch panel refresh rate on power / display change
 After=graphical-session.target
 PartOf=graphical-session.target
 
 [Service]
 Type=simple
 ExecStart=%h/.local/bin/watch-power.sh
-Restart=on-failure
+Restart=always
+RestartSec=2
 
 [Install]
 WantedBy=graphical-session.target

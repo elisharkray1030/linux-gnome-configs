@@ -1,17 +1,24 @@
 #!/bin/bash
-# Run the refresh-rate switch once at start, then on every UPower power-source change.
-# Runs inside a systemd --user service, so the session bus is available.
-#
-# Install: copy this and auto-refresh-rate.sh to ~/.local/bin/, chmod +x both,
-# then copy switch-refresh-rate.service to ~/.config/systemd/user/ and:
-#   systemctl --user daemon-reload
-#   systemctl --user enable --now switch-refresh-rate.service
-#   sudo rm -f /etc/udev/rules.d/99-refresh-rate-switch.rules
-"$HOME/.local/bin/auto-refresh-rate.sh"
+# Re-apply the panel refresh rate whenever the power source or the monitor
+# layout changes. Runs in a systemd --user service, so the session bus is
+# available (unlike udev).
+set -u
 
+apply="$HOME/.local/bin/auto-refresh-rate.sh"
+"$apply"    # once at startup
+
+# AC <-> battery
 gdbus monitor --system --dest org.freedesktop.UPower \
     --object-path /org/freedesktop/UPower \
-| grep --line-buffered 'OnBattery' \
-| while read -r _; do
-    "$HOME/.local/bin/auto-refresh-rate.sh"
-done
+  | grep --line-buffered OnBattery \
+  | while read -r _; do "$apply"; done &
+p1=$!
+
+# monitor plugged / unplugged (Mutter)
+gdbus monitor --session --dest org.gnome.Mutter.DisplayConfig \
+    --object-path /org/gnome/Mutter/DisplayConfig \
+  | grep --line-buffered MonitorsChanged \
+  | while read -r _; do sleep 1; "$apply"; done &
+p2=$!
+
+wait "$p1" "$p2"
